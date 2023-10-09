@@ -6,24 +6,28 @@ let result;
 let buttons = document.querySelector(".buttons");
 
 buttons.addEventListener('click', (event) => {
+  game_count ++;
   let target = event.target;
-  let userPick = document.createElement('p');
+  let roundResult = document.createElement('p');
   switch(target.id) {
     case 'rock':
-      userPick.setAttribute("id", "rock")
-
+      roundResult.setAttribute("id", "rock")
       break;
     case 'paper':
-      userPick.setAttribute("id", "paper")
+      roundResult.setAttribute("id", "paper")
       break;
     case 'scissors':
-      userPick.setAttribute("id", "scissors")
+      roundResult.setAttribute("id", "scissors")
       break;
   }
-  document.body.appendChild(userPick);
+  let userPick = roundResult.id
   let computerPick = getComputerChoice();
-  let matchResult = pickWinner(computerPick, userPick.id);
-  console.log(scoreBoard(matchResult, computerPick, userPick.id));
+  let matchResult = pickWinner(computerPick, userPick);
+  roundResult.textContent = scoreBoard(matchResult, computerPick, userPick);
+  document.body.appendChild(roundResult);
+  let roundScoreBoard = document.createElement('p');
+  roundScoreBoard.textContent = `Round ${game_count} : ${user_score} / ${computer_score}`
+  document.body.appendChild(roundScoreBoard);
 });
 
 //while (game_count !=5) {
