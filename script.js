@@ -4,6 +4,7 @@ let user_score = 0;
 let result;
 
 let buttons = document.querySelector(".buttons");
+let results = document.querySelector(".results");
 
 buttons.addEventListener('click', (event) => {
   game_count ++;
@@ -24,26 +25,14 @@ buttons.addEventListener('click', (event) => {
   let computerPick = getComputerChoice();
   let matchResult = pickWinner(computerPick, userPick);
   roundResult.textContent = scoreBoard(matchResult, computerPick, userPick);
-  document.body.appendChild(roundResult);
+  results.appendChild(roundResult);
   let roundScoreBoard = document.createElement('p');
   roundScoreBoard.textContent = `Round ${game_count} : ${user_score} / ${computer_score}`
-  document.body.appendChild(roundScoreBoard);
+  results.appendChild(roundScoreBoard);
+  if (user_score === 5 || computer_score ===5) {
+    alert(`Game over! Final score: ${user_score} / ${computer_score}\nYou can keep playing, or refresh to start a new game!`)
+  }
 });
-
-//while (game_count !=5) {
-//  game();
-//  console.log(`Current score at round ${game_count} - You: ${user_score} / Computer: ${computer_score}`)
-//}
-
-if (user_score > computer_score) {
-  console.log("You win!!")
-}
-else if (user_score < computer_score) {
-  console.log("You loose!!")
-}
-else {
-  console.log("It's a draw!!")
-}
 
 function getComputerChoice () {
   let result = Math.floor(Math.random()*3)
@@ -101,15 +90,4 @@ function scoreBoard (result, computerPick, userPick) {
     return (`You loose! ${computerPick} beats ${userPick}`);
   }
   return `It's a tie! You both used ${userPick}`;
-}
-
-function game() {
-  computerSelection = getComputerChoice();
-  playerSelection = prompt("Please input your pick: ").toLowerCase();
-  while (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-    playerSelection = prompt("Not a valid pick! Please input your pick: ").toLowerCase();
-  }
-  result = pickWinner(computerSelection, playerSelection);
-  console.log(scoreBoard(result, computerSelection, playerSelection));
-  game_count +=1;
 }
