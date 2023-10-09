@@ -3,11 +3,33 @@ let computer_score = 0;
 let user_score = 0;
 let result;
 
+let buttons = document.querySelector(".buttons");
 
-while (game_count !=5) {
-  game();
-  console.log(`Current score at round ${game_count} - You: ${user_score} / Computer: ${computer_score}`)
-}
+buttons.addEventListener('click', (event) => {
+  let target = event.target;
+  let userPick = document.createElement('p');
+  switch(target.id) {
+    case 'rock':
+      userPick.setAttribute("id", "rock")
+
+      break;
+    case 'paper':
+      userPick.setAttribute("id", "paper")
+      break;
+    case 'scissors':
+      userPick.setAttribute("id", "scissors")
+      break;
+  }
+  document.body.appendChild(userPick);
+  let computerPick = getComputerChoice();
+  let matchResult = pickWinner(computerPick, userPick.id);
+  console.log(scoreBoard(matchResult, computerPick, userPick.id));
+});
+
+//while (game_count !=5) {
+//  game();
+//  console.log(`Current score at round ${game_count} - You: ${user_score} / Computer: ${computer_score}`)
+//}
 
 if (user_score > computer_score) {
   console.log("You win!!")
